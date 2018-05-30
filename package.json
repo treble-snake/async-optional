@@ -1,0 +1,32 @@
+{
+  "name": "async-optional",
+  "version": "0.1.0",
+  "description": "Optional implementation with async support",
+  "main": "index.js",
+  "scripts": {
+    "test": "NODE_ENV=test mocha"
+  },
+  "keywords": [
+    "optional",
+    "unconditional",
+    "functional",
+    "flow",
+    "data-flow"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/treble-snake/async-optional.git"
+  },
+  "bugs": {
+    "url": "https://github.com/treble-snake/async-optional/issues"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "author": "Treble Snake <treble.snake@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0"
+  }
+}
