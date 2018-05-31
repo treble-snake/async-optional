@@ -114,7 +114,7 @@ describe('AsyncOptional.filter()', function () {
         .asyncValue
         .then(value => {
           chai.assert.isTrue(called);
-          chai.assert.equal(value, DEFINED_VALUE);
+          chai.assert.strictEqual(value, DEFINED_VALUE);
           done();
         })
         .catch(done);
@@ -132,7 +132,7 @@ describe('AsyncOptional.filter()', function () {
         .asyncValue
         .then(value => {
           chai.assert.isTrue(called);
-          chai.assert.equal(value, DEFINED_VALUE);
+          chai.assert.strictEqual(value, DEFINED_VALUE);
           done();
         })
         .catch(done);
@@ -150,7 +150,7 @@ describe('AsyncOptional.filter()', function () {
         .asyncValue
         .then(value => {
           chai.assert.isTrue(called);
-          chai.assert.equal(value, DEFINED_VALUE);
+          chai.assert.strictEqual(value, DEFINED_VALUE);
           done();
         })
         .catch(done);
@@ -168,7 +168,7 @@ describe('AsyncOptional.filter()', function () {
         .asyncValue
         .then(value => {
           chai.assert.isTrue(called);
-          chai.assert.equal(value, DEFINED_VALUE);
+          chai.assert.strictEqual(value, DEFINED_VALUE);
           done();
         })
         .catch(done);

@@ -40,7 +40,7 @@ describe('AsyncOptional.map()', function () {
         .asyncValue
         .then(value => {
           chai.assert.isTrue(called);
-          chai.assert.equal(value, DEFINED_VALUE + 1);
+          chai.assert.strictEqual(value, DEFINED_VALUE + 1);
           done();
         })
         .catch(done);
@@ -58,7 +58,7 @@ describe('AsyncOptional.map()', function () {
         .asyncValue
         .then(value => {
           chai.assert.isTrue(called);
-          chai.assert.equal(value, DEFINED_VALUE + 1);
+          chai.assert.strictEqual(value, DEFINED_VALUE + 1);
           done();
         })
         .catch(done);
@@ -76,7 +76,7 @@ describe('AsyncOptional.map()', function () {
         .asyncValue
         .then(value => {
           chai.assert.isTrue(called);
-          chai.assert.equal(value, DEFINED_VALUE + 1);
+          chai.assert.strictEqual(value, DEFINED_VALUE + 1);
           done();
         })
         .catch(done);
@@ -94,7 +94,7 @@ describe('AsyncOptional.map()', function () {
         .asyncValue
         .then(value => {
           chai.assert.isTrue(called);
-          chai.assert.equal(value, DEFINED_VALUE + 1);
+          chai.assert.strictEqual(value, DEFINED_VALUE + 1);
           done();
         })
         .catch(done);
@@ -120,8 +120,8 @@ describe('AsyncOptional.map()', function () {
         .map(asyncMapper)
         .asyncValue
         .then(value => {
-          chai.assert.equal(called, 4);
-          chai.assert.equal(value, DEFINED_VALUE + 4);
+          chai.assert.strictEqual(called, 4);
+          chai.assert.strictEqual(value, DEFINED_VALUE + 4);
           done();
         })
         .catch(done);

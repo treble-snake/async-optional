@@ -46,7 +46,7 @@ describe('AsyncOptional.flatMap()', function () {
       .catch(e => {
         chai.assert.isTrue(called);
         chai.assert.instanceOf(e, TypeError);
-        chai.assert.equal(e.message, 'Flat mapper did not return an AsyncOptional');
+        chai.assert.strictEqual(e.message, 'Flat mapper did not return an AsyncOptional');
         done();
       });
   });

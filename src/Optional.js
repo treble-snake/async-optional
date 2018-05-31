@@ -205,21 +205,6 @@ class Optional {
 
     return newOptional;
   }
-
-  /**
-   *  TODO is it needed?
-   * @param {function(T): void} peeker
-   * @return {Optional}
-   * @template T
-   */
-  peek(peeker) {
-    if (isEmpty(this.value)) {
-      return Optional.empty();
-    }
-
-    peeker(this.value);
-    return new Optional(this.value);
-  }
 }
 
 module.exports = Optional;

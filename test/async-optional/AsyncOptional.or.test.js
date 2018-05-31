@@ -24,7 +24,7 @@ describe('AsyncOptional.or()', function () {
       .asyncValue
       .then(value => {
         chai.assert.isTrue(called);
-        chai.assert.equal(value, ANOTHER_VALUE);
+        chai.assert.strictEqual(value, ANOTHER_VALUE);
         done();
       })
       .catch(done);
@@ -42,7 +42,7 @@ describe('AsyncOptional.or()', function () {
       .asyncValue
       .then(value => {
         chai.assert.isFalse(called);
-        chai.assert.equal(value, DEFINED_VALUE);
+        chai.assert.strictEqual(value, DEFINED_VALUE);
         done();
       })
       .catch(done);
@@ -60,7 +60,7 @@ describe('AsyncOptional.or()', function () {
       .asyncValue
       .then(value => {
         chai.assert.isFalse(called);
-        chai.assert.equal(value, DEFINED_VALUE);
+        chai.assert.strictEqual(value, DEFINED_VALUE);
         done();
       })
       .catch(done);

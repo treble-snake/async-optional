@@ -22,7 +22,14 @@ class Helper {
     Helper.checkPromiseResult(optional.asyncValue, value, done);
   }
 
-
+  /**
+   * @param {Optional} optional
+   * @param expectedValue
+   */
+  static checkSyncValue(optional, expectedValue) {
+    // noinspection JSAccessibilityCheck
+    chai.assert.strictEqual(optional.value, expectedValue);
+  }
 }
 
 module.exports = Helper;
