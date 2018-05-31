@@ -9,69 +9,36 @@ describe('AsyncOptional.statics', function () {
 
   describe('empty()', function () {
     it('should create optional with null value', function (done) {
-      Helper.assertAsyncValue(AsyncOptional.empty(), null, done);
+      Helper.checkAsyncValue(AsyncOptional.empty(), null, done);
     });
   });
 
   describe('with()', function () {
     it('should create an optional with sync null value', function (done) {
-      // noinspection JSAccessibilityCheck
-      AsyncOptional.with(null).asyncValue
-        .then(value => {
-          chai.assert.isNull(value);
-          done();
-        })
-        .catch(done);
+      Helper.checkAsyncValue(AsyncOptional.with(null), null, done);
     });
 
     it('should create an with sync undefined value', function (done) {
-      // noinspection JSAccessibilityCheck
-      AsyncOptional.with(undefined).asyncValue
-        .then(value => {
-          chai.assert.isUndefined(value);
-          done();
-        })
-        .catch(done);
+      Helper.checkAsyncValue(AsyncOptional.with(undefined), undefined, done);
     });
 
     it('should create an optional with async null value', function (done) {
-      // noinspection JSAccessibilityCheck
-      AsyncOptional.with(Promise.resolve(null)).asyncValue
-        .then(value => {
-          chai.assert.isNull(value);
-          done();
-        })
-        .catch(done);
+      Helper.checkAsyncValue(AsyncOptional.with(null), null, done);
     });
 
     it('should create an optional with async undefined value', function (done) {
-      // noinspection JSAccessibilityCheck
-      AsyncOptional.with(Promise.resolve()).asyncValue
-        .then(value => {
-          chai.assert.isUndefined(value);
-          done();
-        })
-        .catch(done);
+      Helper.checkAsyncValue(
+        AsyncOptional.with(Promise.resolve()), undefined, done);
     });
 
     it('should create an optional with sync defined value', function (done) {
-      // noinspection JSAccessibilityCheck
-      AsyncOptional.with(DEFINED_VALUE).asyncValue
-        .then(value => {
-          chai.assert.equal(value, DEFINED_VALUE);
-          done();
-        })
-        .catch(done);
+      Helper.checkAsyncValue(
+        AsyncOptional.with(DEFINED_VALUE), DEFINED_VALUE, done);
     });
 
     it('should create an optional with async defined value', function (done) {
-      // noinspection JSAccessibilityCheck
-      AsyncOptional.with(Promise.resolve(DEFINED_VALUE)).asyncValue
-        .then(value => {
-          chai.assert.equal(value, DEFINED_VALUE);
-          done();
-        })
-        .catch(done);
+      Helper.checkAsyncValue(
+        AsyncOptional.with(Promise.resolve(DEFINED_VALUE)), DEFINED_VALUE, done);
     });
   });
 
@@ -107,12 +74,12 @@ describe('AsyncOptional.statics', function () {
     });
 
     it('should create an optional with sync defined value', function (done) {
-      Helper.assertAsyncValue(
+      Helper.checkAsyncValue(
         AsyncOptional.withEnsured(DEFINED_VALUE), DEFINED_VALUE, done);
     });
 
     it('should create an optional with async defined value', function (done) {
-      Helper.assertAsyncValue(
+      Helper.checkAsyncValue(
         AsyncOptional.withEnsured(Promise.resolve(DEFINED_VALUE)), DEFINED_VALUE, done);
     });
   });

@@ -8,7 +8,6 @@ const DEFINED_VALUE = 42;
 describe('AsyncOptional.filter()', function () {
 
   describe('empty cases', function () {
-    // empty case
     it('should not be called on empty optional', function (done) {
       let called = false;
 

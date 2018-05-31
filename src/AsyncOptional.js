@@ -254,7 +254,7 @@ class AsyncOptional {
           }
 
           // wait for mapper (can be async)
-          Promise.resolve(mapper(value))
+          return Promise.resolve(mapper(value))
             .then(mappedValue => {
               if (!(mappedValue instanceof AsyncOptional)) {
                 throw new TypeError('Flat mapper did not return an AsyncOptional');
@@ -266,22 +266,6 @@ class AsyncOptional {
             });
         })
         .catch(reject);
-    }));
-  }
-
-  /**
-   * TODO is it needed?
-   * @param {function(T): void} peeker
-   * @return {AsyncOptional<T>}
-   * @template T
-   */
-  peek(peeker) {
-    return new AsyncOptional(this.asyncValue.then(value => {
-      if (!isEmpty(value)) {
-        peeker(value);
-      }
-
-      return value;
     }));
   }
 }

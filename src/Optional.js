@@ -138,7 +138,7 @@ class Optional {
       return;
     }
 
-    actionOnPresence(value);
+    actionOnPresence(this.value);
   }
 
   /**
