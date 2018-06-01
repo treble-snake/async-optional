@@ -63,10 +63,38 @@ class Optional {
    * @template T
    * @template M
    */
-  or(optionalSupplier) {
+  orFlatCompute(optionalSupplier) {
     return isEmpty(this.value) ?
       optionalSupplier() :
       new Optional(this.value);
+  }
+
+  /**
+   * Creates a new optional with one of two values:
+   * - with current optional value, if it's not empty
+   * - otherwise - with given value
+   *
+   * @param {M} newValue
+   * @return {Optional<T|M>}
+   * @template T
+   * @template M
+   */
+  orUse(newValue) {
+    return new Optional(isEmpty(this.value) ? newValue : this.value);
+  }
+
+  /**
+   * Creates a new optional with one of two values:
+   * - with current optional value, if it's not empty
+   * - otherwise - with value returned by given supplier
+   *
+   * @param {function(): M} supplier
+   * @return {Optional<T|M>}
+   * @template T
+   * @template M
+   */
+  orCompute(supplier) {
+    return new Optional(isEmpty(this.value) ? supplier() : this.value);
   }
 
   /**
@@ -95,31 +123,34 @@ class Optional {
   }
 
   /**
-   * Returns current Optional value if it's not empty,
-   * or given `other` argument otherwise
+   * Provides action to perform if optional value is empty
    *
-   * @param {M} other - value to be returned if current value is empty
-   * @return {T|M} one of two values
-   * @template M
+   * @param {function(T): void} action
+   * @return {void}
    * @template T
    */
-  getOrDefault(other) {
-    return isEmpty(this.value) ? other : this.value;
+  ifPresent(action) {
+    if (!isEmpty(this.value)) {
+      action(this.value);
+    }
   }
 
   /**
-   * Returns current Optional value if it's not empty,
-   * or result of execution of given `supplier` function otherwise
+   * Provides action to perform if optional value is defined,
+   * should be followed by chained method `.or()` with action
+   * to perform if optional value if empty
    *
-   * @param {function(): M} supplier - function to be
-   * executed if current optional value is empty
-   *
-   * @return {Promise<T|M>} one of two values
-   * @template M
+   * @param {function(T): void} actionOnPresence
+   * @return {{or: (function(function(): *): void)}}
    * @template T
    */
-  getOrCompute(supplier) {
-    return isEmpty(this.value) ? supplier() : this.value;
+  either(actionOnPresence) {
+    this.ifPresent(actionOnPresence);
+    return {
+      or: actionOnAbsence => {
+        this.ifEmpty(actionOnAbsence);
+      }
+    };
   }
 
   /**
@@ -128,8 +159,9 @@ class Optional {
    * @param {function(T): void} actionOnPresence - executed only with non-empty values
    * @param {function(): void} [actionOnAbsence] - executed only if value is empty, can be omitted
    * @return {void}
+   * @template T
    */
-  do(actionOnPresence, actionOnAbsence) {
+  eitherOr(actionOnPresence, actionOnAbsence) {
     if (isEmpty(this.value)) {
       if (!isEmpty(actionOnAbsence)) {
         actionOnAbsence();
@@ -147,7 +179,7 @@ class Optional {
    * @param {function(): void} action
    * @return {void}
    */
-  doOnAbsence(action) {
+  ifEmpty(action) {
     if (isEmpty(this.value)) {
       action();
     }

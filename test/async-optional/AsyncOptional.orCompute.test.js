@@ -6,20 +6,16 @@ const AsyncOptional = require('../../src/AsyncOptional');
 const DEFINED_VALUE = 42;
 const ANOTHER_VALUE = 777;
 
-describe('AsyncOptional.or()', function () {
+describe('AsyncOptional.orCompute()', function () {
 
-  function createAnotherOptional() {
-    return AsyncOptional.with(777);
-  }
-
-  it('should be called on empty optional', function (done) {
+  it('should call sync supplier on empty optional', function (done) {
     let called = false;
 
     // noinspection JSAccessibilityCheck
     AsyncOptional.empty()
-      .or(() => {
+      .orCompute(() => {
         called = true;
-        return createAnotherOptional();
+        return ANOTHER_VALUE;
       })
       .asyncValue
       .then(value => {
@@ -30,14 +26,43 @@ describe('AsyncOptional.or()', function () {
       .catch(done);
   });
 
+  it('should call async supplier on empty optional', function (done) {
+    let called = false;
+
+    // noinspection JSAccessibilityCheck
+    AsyncOptional.empty()
+      .orCompute(() => {
+        called = true;
+        return Promise.resolve(ANOTHER_VALUE);
+      })
+      .asyncValue
+      .then(value => {
+        chai.assert.isTrue(called);
+        chai.assert.strictEqual(value, ANOTHER_VALUE);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('should throw if supplier does not a function', function (done) {
+    // noinspection JSAccessibilityCheck
+    AsyncOptional.empty()
+      .orCompute(ANOTHER_VALUE)
+      .asyncValue
+      .catch(e => {
+        chai.assert.instanceOf(e, TypeError);
+        done();
+      });
+  });
+
   it('should not be called on optional with sync defined value', function (done) {
     let called = false;
 
     // noinspection JSAccessibilityCheck
     AsyncOptional.with(DEFINED_VALUE)
-      .or(() => {
+      .orCompute(() => {
         called = true;
-        return createAnotherOptional();
+        return ANOTHER_VALUE;
       })
       .asyncValue
       .then(value => {
@@ -53,9 +78,9 @@ describe('AsyncOptional.or()', function () {
 
     // noinspection JSAccessibilityCheck
     AsyncOptional.with(Promise.resolve(DEFINED_VALUE))
-      .or(() => {
+      .orCompute(() => {
         called = true;
-        return createAnotherOptional();
+        return ANOTHER_VALUE;
       })
       .asyncValue
       .then(value => {
@@ -65,4 +90,5 @@ describe('AsyncOptional.or()', function () {
       })
       .catch(done);
   });
+
 });

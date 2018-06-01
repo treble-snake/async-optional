@@ -470,7 +470,7 @@
     Creates an optional with specified not nullable value
 If value (or result of promise) is empty (null or undefined),
 TypeError exception will be thrown on attempt of getting result by calling one of
-final methods (like do, get, etc)
+final methods (like eitherOr, get, etc)
 </div>
 
 
@@ -618,7 +618,7 @@ final methods (like do, get, etc)
     
 
     
-    <h4 class="name" id="do"><span class="type-signature"></span>do<span class="signature">(actionOnPresence, actionOnAbsence<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span></h4>
+    <h4 class="name" id="either"><span class="type-signature"></span>either<span class="signature">(actionOnPresence)</span><span class="type-signature"> &rarr; {Object}</span></h4>
     
 
     
@@ -626,7 +626,162 @@ final methods (like do, get, etc)
 
 
 <div class="description">
-    Provides actions to perform with optional value
+    Provides action to perform if optional value is defined,
+should be followed by chained method `.or()` with action
+to perform if optional value if empty
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>actionOnPresence</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="AsyncOptional.js.html">AsyncOptional.js</a>, <a href="AsyncOptional.js.html#line177">line 177</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="eitherOr"><span class="type-signature"></span>eitherOr<span class="signature">(actionOnPresence, actionOnAbsence<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Provides actions to perform with optional value on presence and absence
 </div>
 
 
@@ -688,7 +843,7 @@ final methods (like do, get, etc)
 
             
 
-            <td class="description last">executed only with non-empty values</td>
+            <td class="description last">- executed only with non-empty values</td>
         </tr>
 
     
@@ -721,7 +876,7 @@ final methods (like do, get, etc)
 
             
 
-            <td class="description last">executed only if value is empty, can be omitted</td>
+            <td class="description last">- executed only if value is empty, can be omitted</td>
         </tr>
 
     
@@ -762,160 +917,7 @@ final methods (like do, get, etc)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AsyncOptional.js.html">AsyncOptional.js</a>, <a href="AsyncOptional.js.html#line153">line 153</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;void></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="doOnAbsence"><span class="type-signature"></span>doOnAbsence<span class="signature">(action)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Provides action to perform if optional value is empty
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>action</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AsyncOptional.js.html">AsyncOptional.js</a>, <a href="AsyncOptional.js.html#line172">line 172</a>
+        <a href="AsyncOptional.js.html">AsyncOptional.js</a>, <a href="AsyncOptional.js.html#line195">line 195</a>
     </li></ul></dd>
     
 
@@ -1071,7 +1073,7 @@ Predicate function doesn't get executed if current value is empty
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AsyncOptional.js.html">AsyncOptional.js</a>, <a href="AsyncOptional.js.html#line191">line 191</a>
+        <a href="AsyncOptional.js.html">AsyncOptional.js</a>, <a href="AsyncOptional.js.html#line232">line 232</a>
     </li></ul></dd>
     
 
@@ -1224,7 +1226,7 @@ Predicate function doesn't get executed if current value is empty
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AsyncOptional.js.html">AsyncOptional.js</a>, <a href="AsyncOptional.js.html#line245">line 245</a>
+        <a href="AsyncOptional.js.html">AsyncOptional.js</a>, <a href="AsyncOptional.js.html#line286">line 286</a>
     </li></ul></dd>
     
 
@@ -1328,7 +1330,7 @@ Predicate function doesn't get executed if current value is empty
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AsyncOptional.js.html">AsyncOptional.js</a>, <a href="AsyncOptional.js.html#line113">line 113</a>
+        <a href="AsyncOptional.js.html">AsyncOptional.js</a>, <a href="AsyncOptional.js.html#line149">line 149</a>
     </li></ul></dd>
     
 
@@ -1384,7 +1386,7 @@ Predicate function doesn't get executed if current value is empty
     
 
     
-    <h4 class="name" id="getOrCompute"><span class="type-signature"></span>getOrCompute<span class="signature">(supplier)</span><span class="type-signature"> &rarr; {Promise.&lt;(T|M)>}</span></h4>
+    <h4 class="name" id="ifEmpty"><span class="type-signature"></span>ifEmpty<span class="signature">(action)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span></h4>
     
 
     
@@ -1392,8 +1394,7 @@ Predicate function doesn't get executed if current value is empty
 
 
 <div class="description">
-    Returns current optional value if it's not empty,
-returns result of execution of given `supplier` function otherwise
+    Provides action to perform if optional value is empty
 </div>
 
 
@@ -1429,7 +1430,7 @@ returns result of execution of given `supplier` function otherwise
 
         <tr>
             
-                <td class="name"><code>supplier</code></td>
+                <td class="name"><code>action</code></td>
             
 
             <td class="type">
@@ -1445,8 +1446,7 @@ returns result of execution of given `supplier` function otherwise
 
             
 
-            <td class="description last">function to be
-executed if current optional value is empty</td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -1487,7 +1487,7 @@ executed if current optional value is empty</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AsyncOptional.js.html">AsyncOptional.js</a>, <a href="AsyncOptional.js.html#line141">line 141</a>
+        <a href="AsyncOptional.js.html">AsyncOptional.js</a>, <a href="AsyncOptional.js.html#line214">line 214</a>
     </li></ul></dd>
     
 
@@ -1513,10 +1513,6 @@ executed if current optional value is empty</td>
 <h5>Returns:</h5>
 
         
-<div class="param-desc">
-    promise resulting to one of two values
-</div>
-
 
 
 <dl>
@@ -1525,7 +1521,7 @@ executed if current optional value is empty</td>
     </dt>
     <dd>
         
-<span class="param-type">Promise.&lt;(T|M)></span>
+<span class="param-type">Promise.&lt;void></span>
 
 
     </dd>
@@ -1543,7 +1539,7 @@ executed if current optional value is empty</td>
     
 
     
-    <h4 class="name" id="getOrDefault"><span class="type-signature"></span>getOrDefault<span class="signature">(other)</span><span class="type-signature"> &rarr; {Promise.&lt;(T|M)>}</span></h4>
+    <h4 class="name" id="ifPresent"><span class="type-signature"></span>ifPresent<span class="signature">(action)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span></h4>
     
 
     
@@ -1551,8 +1547,7 @@ executed if current optional value is empty</td>
 
 
 <div class="description">
-    Returns current optional value if it's not empty,
-returns given `other` argument value otherwise
+    Provides action to perform if optional value is defined
 </div>
 
 
@@ -1588,13 +1583,13 @@ returns given `other` argument value otherwise
 
         <tr>
             
-                <td class="name"><code>other</code></td>
+                <td class="name"><code>action</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">M</span>
+<span class="param-type">function</span>
 
 
             
@@ -1604,7 +1599,7 @@ returns given `other` argument value otherwise
 
             
 
-            <td class="description last">value to be returned if current value is emptyC</td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -1645,7 +1640,7 @@ returns given `other` argument value otherwise
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AsyncOptional.js.html">AsyncOptional.js</a>, <a href="AsyncOptional.js.html#line126">line 126</a>
+        <a href="AsyncOptional.js.html">AsyncOptional.js</a>, <a href="AsyncOptional.js.html#line160">line 160</a>
     </li></ul></dd>
     
 
@@ -1671,10 +1666,6 @@ returns given `other` argument value otherwise
 <h5>Returns:</h5>
 
         
-<div class="param-desc">
-    promise resulting to one of two values
-</div>
-
 
 
 <dl>
@@ -1683,7 +1674,7 @@ returns given `other` argument value otherwise
     </dt>
     <dd>
         
-<span class="param-type">Promise.&lt;(T|M)></span>
+<span class="param-type">Promise.&lt;void></span>
 
 
     </dd>
@@ -1753,7 +1744,7 @@ returns given `other` argument value otherwise
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AsyncOptional.js.html">AsyncOptional.js</a>, <a href="AsyncOptional.js.html#line104">line 104</a>
+        <a href="AsyncOptional.js.html">AsyncOptional.js</a>, <a href="AsyncOptional.js.html#line140">line 140</a>
     </li></ul></dd>
     
 
@@ -1861,7 +1852,7 @@ returns given `other` argument value otherwise
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AsyncOptional.js.html">AsyncOptional.js</a>, <a href="AsyncOptional.js.html#line96">line 96</a>
+        <a href="AsyncOptional.js.html">AsyncOptional.js</a>, <a href="AsyncOptional.js.html#line132">line 132</a>
     </li></ul></dd>
     
 
@@ -2019,7 +2010,7 @@ Mapper function doesn't get executed if current value is empty
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AsyncOptional.js.html">AsyncOptional.js</a>, <a href="AsyncOptional.js.html#line220">line 220</a>
+        <a href="AsyncOptional.js.html">AsyncOptional.js</a>, <a href="AsyncOptional.js.html#line261">line 261</a>
     </li></ul></dd>
     
 
@@ -2075,7 +2066,162 @@ Mapper function doesn't get executed if current value is empty
     
 
     
-    <h4 class="name" id="or"><span class="type-signature"></span>or<span class="signature">(optionalSupplier)</span><span class="type-signature"> &rarr; {<a href="AsyncOptional.html">AsyncOptional</a>.&lt;(T|M)>}</span></h4>
+    <h4 class="name" id="orCompute"><span class="type-signature"></span>orCompute<span class="signature">(supplier)</span><span class="type-signature"> &rarr; {<a href="AsyncOptional.html">AsyncOptional</a>.&lt;(T|M)>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Creates a new optional with one of two values:
+- with current optional value, if it's not empty
+- otherwise - with value returned by given supplier
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>supplier</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="AsyncOptional.js.html">AsyncOptional.js</a>, <a href="AsyncOptional.js.html#line119">line 119</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="AsyncOptional.html">AsyncOptional</a>.&lt;(T|M)></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="orFlatCompute"><span class="type-signature"></span>orFlatCompute<span class="signature">(optionalSupplier)</span><span class="type-signature"> &rarr; {<a href="AsyncOptional.html">AsyncOptional</a>.&lt;(T|M)>}</span></h4>
     
 
     
@@ -2230,7 +2376,7 @@ Mapper function doesn't get executed if current value is empty
     
 
     
-    <h4 class="name" id="peek"><span class="type-signature"></span>peek<span class="signature">(peeker)</span><span class="type-signature"> &rarr; {<a href="AsyncOptional.html">AsyncOptional</a>.&lt;T>}</span></h4>
+    <h4 class="name" id="orUse"><span class="type-signature"></span>orUse<span class="signature">(newValue)</span><span class="type-signature"> &rarr; {<a href="AsyncOptional.html">AsyncOptional</a>.&lt;(T|M)>}</span></h4>
     
 
     
@@ -2238,7 +2384,9 @@ Mapper function doesn't get executed if current value is empty
 
 
 <div class="description">
-    TODO is it needed?
+    Creates a new optional with one of two values:
+- with current optional value, if it's not empty
+- otherwise - with given value
 </div>
 
 
@@ -2274,13 +2422,13 @@ Mapper function doesn't get executed if current value is empty
 
         <tr>
             
-                <td class="name"><code>peeker</code></td>
+                <td class="name"><code>newValue</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">function</span>
+<span class="param-type">M</span>
 
 
             
@@ -2331,7 +2479,7 @@ Mapper function doesn't get executed if current value is empty
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AsyncOptional.js.html">AsyncOptional.js</a>, <a href="AsyncOptional.js.html#line278">line 278</a>
+        <a href="AsyncOptional.js.html">AsyncOptional.js</a>, <a href="AsyncOptional.js.html#line101">line 101</a>
     </li></ul></dd>
     
 
@@ -2365,7 +2513,7 @@ Mapper function doesn't get executed if current value is empty
     </dt>
     <dd>
         
-<span class="param-type"><a href="AsyncOptional.html">AsyncOptional</a>.&lt;T></span>
+<span class="param-type"><a href="AsyncOptional.html">AsyncOptional</a>.&lt;(T|M)></span>
 
 
     </dd>
@@ -2399,7 +2547,7 @@ Mapper function doesn't get executed if current value is empty
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed May 30 2018 19:36:53 GMT+0300 (MSK)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Jun 02 2018 00:06:17 GMT+0300 (MSK)
 </footer>
 
 <script> prettyPrint(); </script>

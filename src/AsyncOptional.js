@@ -49,7 +49,7 @@ class AsyncOptional {
    * Creates an optional with specified not nullable value
    * If value (or result of promise) is empty (null or undefined),
    * {@link TypeError} exception will be thrown on attempt of getting result by calling one of
-   * final methods (like {@link do}, {@link get}, etc)
+   * final methods (like {@link eitherOr}, {@link get}, etc)
    *
    * @param {!Promise<T>|T} value
    * @return {AsyncOptional<T>}
@@ -79,7 +79,7 @@ class AsyncOptional {
    * @template T
    * @template M
    */
-  or(optionalSupplier) {
+  orFlatCompute(optionalSupplier) {
     return new AsyncOptional(new Promise((resolve, reject) => {
       this.asyncValue
         .then(value => isEmpty(value) ? optionalSupplier().get() : value)
@@ -88,6 +88,42 @@ class AsyncOptional {
     }));
   }
 
+  /**
+   * Creates a new optional with one of two values:
+   * - with current optional value, if it's not empty
+   * - otherwise - with given value
+   *
+   * @param {M} newValue
+   * @return {AsyncOptional<T|M>}
+   * @template T
+   * @template M
+   */
+  orUse(newValue) {
+    return new AsyncOptional(new Promise((resolve, reject) => {
+      this.asyncValue
+        .then(value => resolve(isEmpty(value) ? newValue : value))
+        .catch(reject);
+    }));
+  }
+
+  /**
+   * Creates a new optional with one of two values:
+   * - with current optional value, if it's not empty
+   * - otherwise - with value returned by given supplier
+   *
+   * @param {function(): Promise<M>|function(): M} supplier
+   * @return {AsyncOptional<T|M>}
+   * @template T
+   * @template M
+   */
+  orCompute(supplier) {
+    return new AsyncOptional(new Promise((resolve, reject) => {
+      this.asyncValue
+        .then(value => isEmpty(value) ? supplier() : value)
+        .then(value => resolve(value))
+        .catch(reject);
+    }));
+  }
 
   /**
    * Checks if optional value is not empty
@@ -115,42 +151,48 @@ class AsyncOptional {
   }
 
   /**
-   * Returns current optional value if it's not empty,
-   * returns given `other` argument value otherwise
+   * Provides action to perform if optional value is defined
    *
-   * @param {M} other - value to be returned if current value is emptyC
-   * @return {Promise<T|M>} promise resulting to one of two values
-   * @template M
+   * @param {function(T): void|function(T): Promise<void>} action
+   * @return {Promise<void>}
    * @template T
    */
-  getOrDefault(other) {
-    return this.asyncValue.then(value => isEmpty(value) ? other : value);
+  ifPresent(action) {
+    return this.asyncValue.then(value => {
+      if (!isEmpty(value)) {
+        return action(value);
+      }
+    });
   }
 
   /**
-   * Returns current optional value if it's not empty,
-   * returns result of execution of given `supplier` function otherwise
+   * Provides action to perform if optional value is defined,
+   * should be followed by chained method `.or()` with action
+   * to perform if optional value if empty
    *
-   * @param {function(): M|function(): Promise<M>} supplier - function to be
-   * executed if current optional value is empty
-   *
-   * @return {Promise<T|M>} promise resulting to one of two values
-   * @template M
+   * @param {function(T): Promise|function(T): void} actionOnPresence
+   * @return {{or: (function(function(): *): Promise<void>)}}
    * @template T
    */
-  getOrCompute(supplier) {
-    return this.asyncValue
-      .then(value => isEmpty(value) ? supplier() : value);
+  either(actionOnPresence) {
+    const actionPromise = this.ifPresent(actionOnPresence);
+    return {
+      or: actionOnAbsence =>
+        actionPromise.then(() => this.ifEmpty(actionOnAbsence))
+    };
   }
 
+
   /**
-   * Provides actions to perform with optional value
+   * Provides actions to perform with optional value on presence and absence
    *
-   * @param {function(T): void} actionOnPresence - executed only with non-empty values
-   * @param {function(): void} [actionOnAbsence] - executed only if value is empty, can be omitted
+   * @param {function(T): void|function(T): Promise<void>} actionOnPresence
+   * - executed only with non-empty values
+   * @param {function(): void|function(): Promise<void>} [actionOnAbsence]
+   * - executed only if value is empty, can be omitted
    * @return {Promise<void>}
    */
-  do(actionOnPresence, actionOnAbsence) {
+  eitherOr(actionOnPresence, actionOnAbsence) {
     return this.asyncValue.then(value => {
       if (isEmpty(value)) {
         if (!isEmpty(actionOnAbsence)) {
@@ -166,16 +208,15 @@ class AsyncOptional {
   /**
    * Provides action to perform if optional value is empty
    *
-   * @param {function(): void} action
+   * @param {function(): void|function(): Promise<void>} action
    * @return {Promise<void>}
    */
-  doOnAbsence(action) {
+  ifEmpty(action) {
     return this.asyncValue.then(value => {
       if (isEmpty(value)) {
         return action();
       }
     });
-
   }
 
   /**

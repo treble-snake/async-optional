@@ -5,14 +5,14 @@ const AsyncOptional = require('../../src/AsyncOptional');
 
 const DEFINED_VALUE = 42;
 
-describe('AsyncOptional.do()', function () {
+describe('AsyncOptional.eitherOr()', function () {
 
   it('should not call function on empty optional (1 argument)', function (done) {
     let called = false;
     let result;
 
     AsyncOptional.empty()
-      .do(n => {
+      .eitherOr(n => {
         called = true;
         result = n;
       })
@@ -29,7 +29,7 @@ describe('AsyncOptional.do()', function () {
     let result;
 
     AsyncOptional.with(DEFINED_VALUE)
-      .do(n => {
+      .eitherOr(n => {
         called = true;
         result = n;
       })
@@ -46,7 +46,7 @@ describe('AsyncOptional.do()', function () {
     let result;
 
     AsyncOptional.with(Promise.resolve(DEFINED_VALUE))
-      .do(n => {
+      .eitherOr(n => {
         called = true;
         result = n;
       })
@@ -64,7 +64,7 @@ describe('AsyncOptional.do()', function () {
     let value;
 
     AsyncOptional.empty()
-      .do(n => {
+      .eitherOr(n => {
         onPresenceCalled = true;
         value = n;
       }, () => {
@@ -85,7 +85,7 @@ describe('AsyncOptional.do()', function () {
     let value;
 
     AsyncOptional.with(DEFINED_VALUE)
-      .do(n => {
+      .eitherOr(n => {
         onPresenceCalled = true;
         value = n;
       }, () => {

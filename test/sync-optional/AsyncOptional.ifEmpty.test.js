@@ -4,13 +4,13 @@ const Optional = require('../../src/Optional');
 
 const DEFINED_VALUE = 42;
 
-describe('Optional.doOnAbsence()', function () {
+describe('Optional.ifEmpty()', function () {
 
   it('should call function on empty optional', function () {
     let called = false;
 
     Optional.empty()
-      .doOnAbsence(() => {
+      .ifEmpty(() => {
         called = true;
       });
 
@@ -21,7 +21,7 @@ describe('Optional.doOnAbsence()', function () {
     let called = false;
 
     Optional.with(DEFINED_VALUE)
-      .doOnAbsence(() => {
+      .ifEmpty(() => {
         called = true;
       });
 

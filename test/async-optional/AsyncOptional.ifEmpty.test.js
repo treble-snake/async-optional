@@ -5,13 +5,13 @@ const AsyncOptional = require('../../src/AsyncOptional');
 
 const DEFINED_VALUE = 42;
 
-describe('AsyncOptional.doOnAbsence()', function () {
+describe('AsyncOptional.ifEmpty()', function () {
 
   it('should call function on empty optional', function (done) {
     let called = false;
 
     AsyncOptional.empty()
-      .doOnAbsence(() => {
+      .ifEmpty(() => {
         called = true;
       })
       .then(() => {
@@ -25,7 +25,7 @@ describe('AsyncOptional.doOnAbsence()', function () {
     let called = false;
 
     AsyncOptional.with(DEFINED_VALUE)
-      .doOnAbsence(() => {
+      .ifEmpty(() => {
         called = true;
       })
       .then(() => {
