@@ -1,12 +1,14 @@
 {
   "name": "async-optional",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Optional implementation with async support",
   "main": "index.js",
   "scripts": {
     "test": "NODE_ENV=test nyc mocha",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "lint": "eslint ./"
+    "lint": "eslint ./",
+    "preversion": "npm run lint && npm test",
+    "docs": "jsdoc2md src/* > docs/APIDOC.md"
   },
   "keywords": [
     "optional",
@@ -29,11 +31,12 @@
   "license": "MIT",
   "devDependencies": {
     "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "coveralls": "^3.0.1",
     "eslint": "^4.19.1",
+    "jsdoc-to-markdown": "^4.0.1",
     "mocha": "^5.2.0",
     "nyc": "^11.8.0"
   },
-  "dependencies": {
-    "coveralls": "^3.0.1"
-  }
+  "dependencies": {}
 }
