@@ -103,7 +103,7 @@ await AsyncOptional.with(fetchData())
 ```
 You can fetch from more than one source (sequentially). 
 
-Mention those `or()` arguments are functions to be lazy called if previous value supplier fails: 
+Mention those `orCompute/orFlatCompute` arguments are functions to be lazy called if previous value suppliers fail: 
 ```js
 await AsyncOptional
   .with(fetchFromOneSource())
