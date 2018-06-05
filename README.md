@@ -116,7 +116,7 @@ await AsyncOptional
 ```
 
 ## Further reading: TBD
-Here are some [generated API docs](https://treble-snake.github.io/async-optional/).
+Here are some [generated API docs](https://github.com/treble-snake/async-optional/blob/master/docs/APIDOC.md).
 
 ## License
 
