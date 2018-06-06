@@ -1,6 +1,6 @@
 {
   "name": "async-optional",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Optional implementation with async support",
   "main": "index.js",
   "scripts": {

@@ -152,7 +152,7 @@ And finally, you can do something with resulting data (or without it).
 There are 2 ways (in general) of doing that.
 
 #### Cool way
-    Preferred way is using abilities provided by fluent API and staying cool and unconditional.
+Preferred way is using abilities provided by fluent API and staying cool and unconditional.
 
 And the coolest among them is using either/or pair (if you need to react on both
 presence and absence of the value):
@@ -272,7 +272,7 @@ asyncByCallback
 ```
 
 ## Further reading
-Here is complete [API doc](https://treble-snake.github.io/async-optional/).
+Here is complete [API doc](https://github.com/treble-snake/async-optional/blob/master/docs/APIDOC.md).
 
 ## License
 
