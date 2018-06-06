@@ -206,7 +206,7 @@ class Optional {
    * @param {function(): void} action function with no arguments
    * @return {void}
    */
-  ifEmpty(action) {
+  ifAbsent(action) {
     if (isEmpty(this.value)) {
       action();
     }
@@ -233,7 +233,7 @@ class Optional {
     this.ifPresent(actionOnPresence);
     return {
       or: actionOnAbsence => {
-        this.ifEmpty(actionOnAbsence);
+        this.ifAbsent(actionOnAbsence);
       }
     };
   }
@@ -264,7 +264,7 @@ class Optional {
    * Checks if optional value is not empty (both `null` and `undefined` are considered empty)
    * @return {boolean} true if value is not empty, false otherwise
    */
-  isPresent() {
+  hasValue() {
     return !isEmpty(this.value);
   }
 

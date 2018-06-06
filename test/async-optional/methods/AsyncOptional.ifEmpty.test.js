@@ -5,13 +5,13 @@ const AsyncOptional = require('../../../src/AsyncOptional');
 
 const DEFINED_VALUE = 42;
 
-describe('AsyncOptional.ifEmpty()', function () {
+describe('AsyncOptional.ifAbsent()', function () {
 
   it('should call function on empty sync optional value', function () {
     let called = {value: false};
 
     return AsyncOptional.with(null)
-      .ifEmpty(() => {
+      .ifAbsent(() => {
         called.value = true;
       })
       .then(() => {
@@ -23,7 +23,7 @@ describe('AsyncOptional.ifEmpty()', function () {
     let called = {value: false};
 
     return AsyncOptional.with(Promise.resolve())
-      .ifEmpty(() => {
+      .ifAbsent(() => {
         called.value = true;
       })
       .then(() => {
@@ -35,7 +35,7 @@ describe('AsyncOptional.ifEmpty()', function () {
     let called = {value: false};
 
     return AsyncOptional.with(DEFINED_VALUE)
-      .ifEmpty(() => {
+      .ifAbsent(() => {
         called.value = true;
       })
       .then(() => {
@@ -47,7 +47,7 @@ describe('AsyncOptional.ifEmpty()', function () {
     let called = {value: false};
 
     return AsyncOptional.with(Promise.resolve(DEFINED_VALUE))
-      .ifEmpty(() => {
+      .ifAbsent(() => {
         called.value = true;
       })
       .then(() => {
@@ -59,7 +59,7 @@ describe('AsyncOptional.ifEmpty()', function () {
     it('should throw if callback throws (sync value)', function () {
       return Helper.sync().checkFail(
         () => AsyncOptional.with(null)
-          .ifEmpty(() => {
+          .ifAbsent(() => {
             throw new Error('SpecialError');
           }),
         Error, 'SpecialError');
@@ -68,7 +68,7 @@ describe('AsyncOptional.ifEmpty()', function () {
     it('should throw if callback throws (async value)', function () {
       return Helper.async().checkFail(
         AsyncOptional.with(Promise.resolve())
-          .ifEmpty(() => {
+          .ifAbsent(() => {
             throw new Error('SpecialError');
           }),
         Error, 'SpecialError');

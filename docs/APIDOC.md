@@ -83,10 +83,10 @@ predicates, actions and other callback functions.
         * [.map(mapper)](#AsyncOptional+map) ⇒ <code>AsyncOptional.&lt;M&gt;</code>
         * [.flatMap(mapper)](#AsyncOptional+flatMap) ⇒ <code>AsyncOptional.&lt;M&gt;</code>
         * [.ifPresent(action)](#AsyncOptional+ifPresent) ⇒ <code>Promise.&lt;void&gt;</code>
-        * [.ifEmpty(action)](#AsyncOptional+ifEmpty) ⇒ <code>Promise.&lt;void&gt;</code>
+        * [.ifAbsent(action)](#AsyncOptional+ifAbsent) ⇒ <code>Promise.&lt;void&gt;</code>
         * [.either(actionOnPresence)](#AsyncOptional+either) ⇒ [<code>AsyncOptionalEither</code>](#AsyncOptionalEither)
         * [.eitherOr(actionOnPresence, [actionOnAbsence])](#AsyncOptional+eitherOr) ⇒ <code>Promise.&lt;void&gt;</code>
-        * [.isPresent()](#AsyncOptional+isPresent) ⇒ <code>Promise.&lt;boolean&gt;</code>
+        * [.hasValue()](#AsyncOptional+hasValue) ⇒ <code>Promise.&lt;boolean&gt;</code>
         * [.isEmpty()](#AsyncOptional+isEmpty) ⇒ <code>Promise.&lt;boolean&gt;</code>
         * [.get()](#AsyncOptional+get) ⇒ <code>Promise.&lt;T&gt;</code>
     * _static_
@@ -227,9 +227,9 @@ Performs given action if current value is **not empty**
 | --- | --- | --- |
 | action | <code>function</code> | function with one argument, can return Promise |
 
-<a name="AsyncOptional+ifEmpty"></a>
+<a name="AsyncOptional+ifAbsent"></a>
 
-### asyncOptional.ifEmpty(action) ⇒ <code>Promise.&lt;void&gt;</code>
+### asyncOptional.ifAbsent(action) ⇒ <code>Promise.&lt;void&gt;</code>
 Performs given action if current value is **empty**
 
 **Kind**: instance method of [<code>AsyncOptional</code>](#AsyncOptional)  
@@ -275,9 +275,9 @@ Provides actions to perform with optional value on presence and absence
 | actionOnPresence | <code>function</code> | function with one argument to perform on non-empty value, can return Promise |
 | [actionOnAbsence] | <code>function</code> | function with no arguments to perform on empty value, can return Promise, can be omitted |
 
-<a name="AsyncOptional+isPresent"></a>
+<a name="AsyncOptional+hasValue"></a>
 
-### asyncOptional.isPresent() ⇒ <code>Promise.&lt;boolean&gt;</code>
+### asyncOptional.hasValue() ⇒ <code>Promise.&lt;boolean&gt;</code>
 Checks if optional value is not empty (both `null` and `undefined` are considered empty)
 
 **Kind**: instance method of [<code>AsyncOptional</code>](#AsyncOptional)  
@@ -359,10 +359,10 @@ But works faster than [AsyncOptional](#AsyncOptional)
         * [.map(mapper)](#Optional+map) ⇒ <code>Optional.&lt;M&gt;</code>
         * [.flatMap(mapper)](#Optional+flatMap) ⇒ <code>Optional.&lt;N&gt;</code>
         * [.ifPresent(action)](#Optional+ifPresent) ⇒ <code>void</code>
-        * [.ifEmpty(action)](#Optional+ifEmpty) ⇒ <code>void</code>
+        * [.ifAbsent(action)](#Optional+ifAbsent) ⇒ <code>void</code>
         * [.either(actionOnPresence)](#Optional+either) ⇒ [<code>OptionalEither</code>](#OptionalEither)
         * [.eitherOr(actionOnPresence, [actionOnAbsence])](#Optional+eitherOr) ⇒ <code>void</code>
-        * [.isPresent()](#Optional+isPresent) ⇒ <code>boolean</code>
+        * [.hasValue()](#Optional+hasValue) ⇒ <code>boolean</code>
         * [.isEmpty()](#Optional+isEmpty) ⇒ <code>boolean</code>
         * [.get()](#Optional+get) ⇒ <code>T</code>
     * _static_
@@ -501,9 +501,9 @@ Performs given action if current value is **not empty**
 | --- | --- | --- |
 | action | <code>function</code> | function with one argument |
 
-<a name="Optional+ifEmpty"></a>
+<a name="Optional+ifAbsent"></a>
 
-### optional.ifEmpty(action) ⇒ <code>void</code>
+### optional.ifAbsent(action) ⇒ <code>void</code>
 Performs given action if current value is **empty**
 
 **Kind**: instance method of [<code>Optional</code>](#Optional)  
@@ -547,9 +547,9 @@ Provides actions to perform with optional value on presence and absence
 | actionOnPresence | <code>function</code> | function with one argument to perform on non-empty value |
 | [actionOnAbsence] | <code>function</code> | function with no arguments to perform if value is empty, can be omitted |
 
-<a name="Optional+isPresent"></a>
+<a name="Optional+hasValue"></a>
 
-### optional.isPresent() ⇒ <code>boolean</code>
+### optional.hasValue() ⇒ <code>boolean</code>
 Checks if optional value is not empty (both `null` and `undefined` are considered empty)
 
 **Kind**: instance method of [<code>Optional</code>](#Optional)  

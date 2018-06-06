@@ -384,7 +384,7 @@ class AsyncOptional {
    * no arguments, can return Promise
    * @return {Promise<void>} Promise of action execution
    */
-  ifEmpty(action) {
+  ifAbsent(action) {
     if (this.hasEmptyValue()) {
       return ensurePromise(action());
     }
@@ -422,7 +422,7 @@ class AsyncOptional {
     const actionPromise = this.ifPresent(actionOnPresence);
     return {
       or: actionOnAbsence =>
-        actionPromise.then(() => this.ifEmpty(actionOnAbsence))
+        actionPromise.then(() => this.ifAbsent(actionOnAbsence))
     };
   }
 
@@ -469,7 +469,7 @@ class AsyncOptional {
    * Checks if optional value is not empty (both `null` and `undefined` are considered empty)
    * @return {Promise<boolean>} promise resulting to true if value is not empty, to false otherwise
    */
-  isPresent() {
+  hasValue() {
     return ensurePromise(this.value).then(value => !isEmpty(value));
   }
 
