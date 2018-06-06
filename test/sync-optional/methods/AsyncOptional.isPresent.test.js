@@ -4,10 +4,10 @@ const Optional = require('../../../src/Optional');
 
 const DEFINED_VALUE = 42;
 
-describe('Optional.isPresent()', function () {
+describe('Optional.hasValue()', function () {
 
   function check(optional, value) {
-    chai.assert.strictEqual(optional.isPresent(), value);
+    chai.assert.strictEqual(optional.hasValue(), value);
   }
 
   it('should return false on empty optional', function () {

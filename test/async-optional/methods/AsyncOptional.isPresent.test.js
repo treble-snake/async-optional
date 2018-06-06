@@ -5,10 +5,10 @@ const Helper = require('../../Helper');
 
 const DEFINED_VALUE = 42;
 
-describe('AsyncOptional.isPresent()', function () {
+describe('AsyncOptional.hasValue()', function () {
 
   function check(optional, value) {
-    return Helper.async().checkPromiseResult(optional.isPresent(), value);
+    return Helper.async().checkPromiseResult(optional.hasValue(), value);
   }
 
   it('should return false on empty optional', function () {
