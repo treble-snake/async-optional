@@ -3,8 +3,10 @@
 .idea
 
 # Misc
+.eslintignore
 .eslintrc.js
-.nyc_output
+.nyc_output/
+.nycrc
 .travis.yml
 docs/
 
