@@ -16,8 +16,8 @@ function assertOptional(value) {
 
 
 /**
- * `Optional` implementation which can contain plain (can't work with promises)
- * Can operate with synchronous mappers, predicates and other callback functions only.
+ * `Optional` implementation which contains plain values (can't work with promises).
+ * Can operate only with synchronous mappers, predicates and other callback functions.
  * But works faster than {@link AsyncOptional}
  *
  * @class
@@ -58,7 +58,7 @@ class Optional {
   /**
    * Creates an optional with specified value.
    * Value **can not** be empty. Both `null` and `undefined` are considered empty.
-   * If the value (or result of a promise) is empty, {@link TypeError} will be thrown.
+   * If the value is empty, {@link TypeError} will be thrown.
    *
    * @param {!T} value value to contain
    * @return {Optional<T>}
@@ -103,12 +103,11 @@ class Optional {
   }
 
   /**
-   * Returns a new optional with one of two values:
-   * - with current optional value, if it's not empty
-   * - otherwise - with value of optional, returned by given supplier
+   * Returns a new optional with current optional value, if it's not empty
+   * Otherwise - return an optional provided by given supplier
    *
    * @param {function(): Optional<M>} optionalSupplier function with no arguments which
-   * should return another AsyncOptional instance to use instead of current one
+   * should return another Optional instance to use instead of current one
    * (if current one is empty)
    * @return {Optional<T|M>}
    * @throws {TypeError} if `optionalSupplier()` result is not an instance of Optional
@@ -145,7 +144,7 @@ class Optional {
    * Takes property with given name from current value and returns new optional with it
    *
    * @param {*} property property name (or index) to extract
-   * @return {Optional}
+   * @return {Optional<*>} new Optional instance with the value for given property name
    */
   take(property) {
     return isEmpty(this.value) ?
@@ -174,10 +173,10 @@ class Optional {
    * new instance of Optional to be used instead of current one.
    * Mapper function doesn't get executed if current value is empty.
    *
-   * @param {function(T): Optional<N>} mapper function with one argument
+   * @param {function(T): Optional<M>} mapper function with one argument
    * which should return Optional instance
-   * @return {Optional<N>}
-   * @template N
+   * @return {Optional<M>}
+   * @template M
    * @template T
    * @throws {TypeError} if mapper's returned value is not an instance of Optional
    */
@@ -190,7 +189,7 @@ class Optional {
   /**
    * Performs given action if current value is **not empty**
    *
-   * @param {function(T): void} action function with one argument
+   * @param {function(T)} action function with one argument
    * @return {void}
    * @template T
    */
@@ -203,7 +202,7 @@ class Optional {
   /**
    * Performs given action if current value is **empty**
    *
-   * @param {function(): void} action function with no arguments
+   * @param {function()} action function with no arguments
    * @return {void}
    */
   ifAbsent(action) {
@@ -224,7 +223,7 @@ class Optional {
    *   .or(() => printError())
    * ```
    *
-   * @param {function(T): void} actionOnPresence function with one argument
+   * @param {function(T)} actionOnPresence function with one argument
    * @return {OptionalEither} chained instance with
    * singe {@link AsyncOptionalEither#or} method
    * @template T
@@ -241,9 +240,9 @@ class Optional {
   /**
    * Provides actions to perform with optional value on presence and absence
    *
-   * @param {function(T): void} actionOnPresence
+   * @param {function(T)} actionOnPresence
    * function with one argument to perform on non-empty value
-   * @param {function(): void} [actionOnAbsence]
+   * @param {function()} [actionOnAbsence]
    * function with no arguments to perform if value is empty, can be omitted
    * @return {void}
    * @template T
@@ -300,6 +299,6 @@ module.exports = Optional;
  * @method or
  * @memberOf OptionalEither#
  * @instance
- * @param {function(): void} actionOnAbsence function with no arguments
+ * @param {function()} actionOnAbsence function with no arguments
  * @return {void}
  */

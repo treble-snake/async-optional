@@ -1,6 +1,6 @@
 {
   "name": "async-optional",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Optional implementation with async support",
   "main": "index.js",
   "scripts": {
@@ -12,6 +12,8 @@
   },
   "keywords": [
     "optional",
+    "stream",
+    "java",
     "unconditional",
     "functional",
     "flow",
@@ -29,7 +31,8 @@
   },
   "author": "Treble Snake <treble.snake@gmail.com>",
   "contributors": [
-    "Maxim Vinogradov <vinogradov.v.maxim@gmail.com >"
+    "Maxim Vinogradov <vinogradov.v.maxim@gmail.com>",
+    "Sergey Garyaev <sayonara-sama@yandex.ru>"
   ],
   "license": "MIT",
   "devDependencies": {

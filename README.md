@@ -8,6 +8,7 @@
 - [Usage](#usage)
 - [AsyncOptional notes](#asyncoptional-notes)
 - [Further reading](#further-reading)
+- [Changelog](https://github.com/treble-snake/async-optional/releases)
 - [License](#license)
 
 ## About
