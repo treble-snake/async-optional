@@ -128,7 +128,7 @@ class AsyncOptional {
    * @private
    * @return {boolean}
    */
-  hasSyncValue() {
+  _hasSyncValue() {
     return isNotPromise(this.value);
   }
 
@@ -136,7 +136,7 @@ class AsyncOptional {
    * @private
    * @return {boolean}
    */
-  hasEmptyValue() {
+  _hasEmptyValue() {
     return isEmpty(this.value);
   }
 
@@ -152,11 +152,11 @@ class AsyncOptional {
    * @template M
    */
   orUse(newValue) {
-    if (this.hasEmptyValue()) {
+    if (this._hasEmptyValue()) {
       return new AsyncOptional(newValue);
     }
 
-    if (this.hasSyncValue()) {
+    if (this._hasSyncValue()) {
       return new AsyncOptional(this.value);
     }
 
@@ -180,11 +180,11 @@ class AsyncOptional {
    * @template M
    */
   orCompute(supplier) {
-    if (this.hasEmptyValue()) {
+    if (this._hasEmptyValue()) {
       return new AsyncOptional(supplier());
     }
 
-    if (this.hasSyncValue()) {
+    if (this._hasSyncValue()) {
       return new AsyncOptional(this.value);
     }
 
@@ -211,11 +211,11 @@ class AsyncOptional {
    * @template M
    */
   orFlatCompute(optionalSupplier) {
-    if (this.hasEmptyValue()) {
+    if (this._hasEmptyValue()) {
       return assertOptional(optionalSupplier());
     }
 
-    if (this.hasSyncValue()) {
+    if (this._hasSyncValue()) {
       return new AsyncOptional(this.value);
     }
 
@@ -241,11 +241,11 @@ class AsyncOptional {
    * @template T
    */
   filter(predicate) {
-    if (this.hasEmptyValue()) {
+    if (this._hasEmptyValue()) {
       return new AsyncOptional(this.value);
     }
 
-    if (this.hasSyncValue()) {
+    if (this._hasSyncValue()) {
       const predicateResult = predicate(this.value);
 
       if (isPromise(predicateResult)) {
@@ -276,11 +276,11 @@ class AsyncOptional {
    * @return {AsyncOptional}
    */
   take(property) {
-    if (this.hasEmptyValue()) {
+    if (this._hasEmptyValue()) {
       return new AsyncOptional(this.value);
     }
 
-    if (this.hasSyncValue()) {
+    if (this._hasSyncValue()) {
       return new AsyncOptional(this.value[property]);
     }
 
@@ -303,11 +303,11 @@ class AsyncOptional {
    * @template T
    */
   map(mapper) {
-    if (this.hasEmptyValue()) {
+    if (this._hasEmptyValue()) {
       return new AsyncOptional(this.value);
     }
 
-    if (this.hasSyncValue()) {
+    if (this._hasSyncValue()) {
       return new AsyncOptional(mapper(this.value));
     }
 
@@ -332,11 +332,11 @@ class AsyncOptional {
    * @template T
    */
   flatMap(mapper) {
-    if (this.hasEmptyValue()) {
+    if (this._hasEmptyValue()) {
       return new AsyncOptional(this.value);
     }
 
-    if (this.hasSyncValue()) {
+    if (this._hasSyncValue()) {
       const mapperResult = mapper(this.value);
       assertOptional(mapperResult);
       return mapperResult;
@@ -362,11 +362,11 @@ class AsyncOptional {
    * @template T
    */
   ifPresent(action) {
-    if (this.hasEmptyValue()) {
+    if (this._hasEmptyValue()) {
       return Promise.resolve();
     }
 
-    if (this.hasSyncValue()) {
+    if (this._hasSyncValue()) {
       return ensurePromise(action(this.value));
     }
 
@@ -380,16 +380,16 @@ class AsyncOptional {
   /**
    * Performs given action if current value is **empty**
    *
-   * @param {function(): Promise<void>|function(): void} action function with
+   * @param {function(): Promise|function()} action function with
    * no arguments, can return Promise
    * @return {Promise<void>} Promise of action execution
    */
   ifAbsent(action) {
-    if (this.hasEmptyValue()) {
+    if (this._hasEmptyValue()) {
       return ensurePromise(action());
     }
 
-    if (this.hasSyncValue()) {
+    if (this._hasSyncValue()) {
       return Promise.resolve();
     }
 
@@ -412,7 +412,7 @@ class AsyncOptional {
    *   .or(() => printError())
    * ```
    *
-   * @param {function(T): Promise|function(T): void} actionOnPresence function
+   * @param {function(T): Promise|function(T)} actionOnPresence function
    * with one argument, can return Promise
    * @return {AsyncOptionalEither} chained instance with
    * singe {@link AsyncOptionalEither#or} method
@@ -430,10 +430,10 @@ class AsyncOptional {
   /**
    * Provides actions to perform with optional value on presence and absence
    *
-   * @param {function(T): Promise<void>|function(T): void} actionOnPresence
+   * @param {function(T): Promise|function(T)} actionOnPresence
    * function with one argument to perform on non-empty value, can return Promise
    *
-   * @param {function(): void|function(): Promise<void>} [actionOnAbsence]
+   * @param {function(): Promise|function()} [actionOnAbsence]
    * function with no arguments to perform on empty value, can return Promise,
    * can be omitted
    * @return {Promise<void>} Promise one of the given actions execution
@@ -442,13 +442,13 @@ class AsyncOptional {
   eitherOr(actionOnPresence, actionOnAbsence) {
     const hasActionOnAbsence = !isEmpty(actionOnAbsence);
 
-    if (this.hasEmptyValue()) {
+    if (this._hasEmptyValue()) {
       return hasActionOnAbsence ?
         ensurePromise(actionOnAbsence()) :
         Promise.resolve();
     }
 
-    if (this.hasSyncValue()) {
+    if (this._hasSyncValue()) {
       return ensurePromise(actionOnPresence(this.value));
     }
 
@@ -505,7 +505,7 @@ module.exports = AsyncOptional;
  * @method or
  * @memberOf AsyncOptionalEither#
  * @instance
- * @param {function(): void} actionOnAbsence function with no arguments,
+ * @param {function(): Promise|function()} actionOnAbsence function with no arguments,
  * can return Promise
  * @return {Promise<void>} Promise of one of the given actions execution
  * (which one - is based on the current value)

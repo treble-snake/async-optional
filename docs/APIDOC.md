@@ -8,8 +8,8 @@ It also can operate with both synchronous and asynchronous mappers,
 predicates, actions and other callback functions.</p>
 </dd>
 <dt><a href="#Optional">Optional</a></dt>
-<dd><p><code>Optional</code> implementation which can contain plain (can&#39;t work with promises)
-Can operate with synchronous mappers, predicates and other callback functions only.
+<dd><p><code>Optional</code> implementation which contains plain values (can&#39;t work with promises).
+Can operate only with synchronous mappers, predicates and other callback functions.
 But works faster than <a href="#AsyncOptional">AsyncOptional</a></p>
 </dd>
 </dl>
@@ -341,8 +341,8 @@ final methods (like [eitherOr](eitherOr), [get](get), etc).
 <a name="Optional"></a>
 
 ## Optional
-`Optional` implementation which can contain plain (can't work with promises)
-Can operate with synchronous mappers, predicates and other callback functions only.
+`Optional` implementation which contains plain values (can't work with promises).
+Can operate only with synchronous mappers, predicates and other callback functions.
 But works faster than [AsyncOptional](#AsyncOptional)
 
 **Kind**: global class  
@@ -355,9 +355,9 @@ But works faster than [AsyncOptional](#AsyncOptional)
         * [.orCompute(supplier)](#Optional+orCompute) ⇒ <code>Optional.&lt;(T\|M)&gt;</code>
         * [.orFlatCompute(optionalSupplier)](#Optional+orFlatCompute) ⇒ <code>Optional.&lt;(T\|M)&gt;</code>
         * [.filter(predicate)](#Optional+filter) ⇒ <code>Optional.&lt;T&gt;</code> \| <code>Optional.&lt;null&gt;</code>
-        * [.take(property)](#Optional+take) ⇒ [<code>Optional</code>](#Optional)
+        * [.take(property)](#Optional+take) ⇒ <code>Optional.&lt;\*&gt;</code>
         * [.map(mapper)](#Optional+map) ⇒ <code>Optional.&lt;M&gt;</code>
-        * [.flatMap(mapper)](#Optional+flatMap) ⇒ <code>Optional.&lt;N&gt;</code>
+        * [.flatMap(mapper)](#Optional+flatMap) ⇒ <code>Optional.&lt;M&gt;</code>
         * [.ifPresent(action)](#Optional+ifPresent) ⇒ <code>void</code>
         * [.ifAbsent(action)](#Optional+ifAbsent) ⇒ <code>void</code>
         * [.either(actionOnPresence)](#Optional+either) ⇒ [<code>OptionalEither</code>](#OptionalEither)
@@ -411,9 +411,8 @@ Returns a new optional with one of two values:
 <a name="Optional+orFlatCompute"></a>
 
 ### optional.orFlatCompute(optionalSupplier) ⇒ <code>Optional.&lt;(T\|M)&gt;</code>
-Returns a new optional with one of two values:
-- with current optional value, if it's not empty
-- otherwise - with value of optional, returned by given supplier
+Returns a new optional with current optional value, if it's not empty
+Otherwise - return an optional provided by given supplier
 
 **Kind**: instance method of [<code>Optional</code>](#Optional)  
 **Throws**:
@@ -425,7 +424,7 @@ Returns a new optional with one of two values:
 
 | Param | Type | Description |
 | --- | --- | --- |
-| optionalSupplier | <code>function</code> | function with no arguments which should return another AsyncOptional instance to use instead of current one (if current one is empty) |
+| optionalSupplier | <code>function</code> | function with no arguments which should return another Optional instance to use instead of current one (if current one is empty) |
 
 <a name="Optional+filter"></a>
 
@@ -445,11 +444,12 @@ Predicate function doesn't get executed if current value is empty
 
 <a name="Optional+take"></a>
 
-### optional.take(property) ⇒ [<code>Optional</code>](#Optional)
+### optional.take(property) ⇒ <code>Optional.&lt;\*&gt;</code>
 Similar to .map(value => value[property])
 Takes property with given name from current value and returns new optional with it
 
 **Kind**: instance method of [<code>Optional</code>](#Optional)  
+**Returns**: <code>Optional.&lt;\*&gt;</code> - new Optional instance with the value for given property name  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -472,7 +472,7 @@ Mapper function doesn't get executed if current value is empty
 
 <a name="Optional+flatMap"></a>
 
-### optional.flatMap(mapper) ⇒ <code>Optional.&lt;N&gt;</code>
+### optional.flatMap(mapper) ⇒ <code>Optional.&lt;M&gt;</code>
 Similar to [map](#Optional+map), except given mapper function returns
 new instance of Optional to be used instead of current one.
 Mapper function doesn't get executed if current value is empty.
@@ -482,7 +482,7 @@ Mapper function doesn't get executed if current value is empty.
 
 - <code>TypeError</code> if mapper's returned value is not an instance of Optional
 
-**Template**: N  
+**Template**: M  
 **Template**: T  
 
 | Param | Type | Description |
@@ -593,7 +593,7 @@ Value *can* be empty. Both `null` and `undefined` are considered empty.
 ### Optional.withEnsured(value) ⇒ <code>Optional.&lt;T&gt;</code>
 Creates an optional with specified value.
 Value **can not** be empty. Both `null` and `undefined` are considered empty.
-If the value (or result of a promise) is empty, [TypeError](TypeError) will be thrown.
+If the value is empty, [TypeError](TypeError) will be thrown.
 
 **Kind**: static method of [<code>Optional</code>](#Optional)  
 **Throws**:
