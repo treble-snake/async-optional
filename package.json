@@ -1,6 +1,6 @@
 {
   "name": "async-optional",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Optional implementation with async support",
   "main": "index.js",
   "scripts": {
@@ -36,13 +36,13 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "chai": "^4.1.2",
+    "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
-    "coveralls": "^3.0.1",
-    "eslint": "^4.19.1",
+    "coveralls": "^3.0.2",
+    "eslint": "^5.13.0",
     "jsdoc-to-markdown": "^4.0.1",
     "mocha": "^5.2.0",
-    "nyc": "^11.8.0"
+    "nyc": "^13.2.0"
   },
   "dependencies": {}
 }
